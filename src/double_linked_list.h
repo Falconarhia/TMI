@@ -11,5 +11,6 @@ struct DLL_Node {
 };
 
 int init(struct DLL_Node* head);
+int add(struct DLL_Node* head, int value);
 
 #endif
