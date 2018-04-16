@@ -55,3 +55,7 @@ int remove_last(struct DLL_Node* head) {
 
 	return 0;
 }
+
+void clear_dll(struct DLL_Node* head) {
+	while(remove_last(head) == 0) {}
+}
