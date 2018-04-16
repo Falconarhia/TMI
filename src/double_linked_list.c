@@ -33,3 +33,25 @@ int add(struct DLL_Node* head, int value) {
 
 	return 0;
 }
+
+
+int remove_last(struct DLL_Node* head) {
+	if(head == NULL) {
+		return -1;
+	}
+
+	if(head->next == NULL) {
+		return -2;
+	}
+
+	while(head->next != NULL) {
+		head = head->next;
+	}
+
+	struct DLL_Node* tmp = head;
+	head = head->prev;
+	free(tmp);
+	head->next = NULL;
+
+	return 0;
+}

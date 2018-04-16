@@ -12,5 +12,6 @@ struct DLL_Node {
 
 int init(struct DLL_Node* head);
 int add(struct DLL_Node* head, int value);
+int remove_last(struct DLL_Node* head);
 
 #endif
