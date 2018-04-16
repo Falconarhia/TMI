@@ -34,6 +34,22 @@ int add(struct DLL_Node* head, int value) {
 	return 0;
 }
 
+struct DLL_Node* find_item(struct DLL_Node* head, int val) {
+	if(head == NULL) {
+		return NULL;
+	}
+
+	struct DLL_Node* tmp = head->next;
+
+	while(tmp != NULL) {
+		if(tmp->value == val) {
+			return tmp;
+		}
+
+		tmp = tmp->next;
+	}
+}
+
 
 int remove_last(struct DLL_Node* head) {
 	if(head == NULL) {
