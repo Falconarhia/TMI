@@ -69,3 +69,57 @@ int add_instruction(struct Instruction* head, const char* init_state, char read_
 
 	return 0;
 }
+
+int remove_last_instruction(struct Instruction* head) {
+	if(head == NULL) {
+		return -1;
+	}
+
+	if(head->next == NULL) {
+		return -2;
+	}
+
+	struct Instruction* tmp = head->next;
+
+	while(tmp->next != NULL) {
+		tmp = tmp->next;
+		head = head->next;
+	}
+
+	free(tmp->init_state);
+	free(tmp->new_state);
+	free(tmp);
+	head->next = NULL;
+
+	return 0;
+}
+
+int find_instruction(struct Instruction* head, struct Instruction** f_node, const char* init_state, char read_symbol) {
+	if(head == NULL) {
+		return -1;
+	}
+
+	if(f_node == NULL) {
+		return -2;
+	}
+
+	if(init_state == NULL) {
+		return -3;
+	}
+
+	head = head->next;
+	int index = 0;
+	while(head != NULL) {
+		if((strcmp(init_state, head->init_state) == 0) && (read_symbol == head->read_symbol)) {
+			*f_node = head;
+			return index;
+		}
+		++index;
+		head = head->next;
+	}
+	return -4;
+}
+
+void clear_instruction(struct Instruction* head) {
+	while(remove_last_instruction(head) == 0) {}
+}
