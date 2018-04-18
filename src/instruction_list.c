@@ -119,3 +119,7 @@ int find_instruction(struct Instruction* head, struct Instruction** f_node, cons
 	}
 	return -4;
 }
+
+void clear_instruction(struct Instruction* head) {
+	while(remove_last_instruction(head) == 0) {}
+}
