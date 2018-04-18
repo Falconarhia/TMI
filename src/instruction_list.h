@@ -18,4 +18,5 @@ struct Instruction {
 
 int init_instruction(struct Instruction* head);
 int add_instruction(struct Instruction* head, const char* init_state, char read_symbol, const char* new_state, char new_symbol, char motion);
+int remove_last_instruction(struct Instruction* head);
 #endif

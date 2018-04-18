@@ -69,3 +69,27 @@ int add_instruction(struct Instruction* head, const char* init_state, char read_
 
 	return 0;
 }
+
+int remove_last_instruction(struct Instruction* head) {
+	if(head == NULL) {
+		return -1;
+	}
+
+	if(head->next == NULL) {
+		return -2;
+	}
+
+	struct Instruction* tmp = head->next;
+
+	while(tmp->next != NULL) {
+		tmp = tmp->next;
+		head = head->next;
+	}
+
+	free(tmp->init_state);
+	free(tmp->new_state);
+	free(tmp);
+	head->next = NULL;
+
+	return 0;
+}
