@@ -38,3 +38,12 @@ int init_mt(struct MT* mt, size_t len_mtape) {
 
 	return 0;
 }
+
+
+int add_mt_instruction(struct MT* mt, const char* cur_state, char symbol, const char* new_state, char new_symbol, char motion) {
+	struct Instruction* tmp;
+	if(find_instruction(&mt->instructions, &tmp, cur_state, symbol) == -4) {
+		return add_instruction(&mt->instructions, cur_state, symbol, new_state, new_symbol, motion);
+	} 
+	return -4;
+}

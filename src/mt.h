@@ -15,5 +15,6 @@ struct MT {
 };
 
 int init_mt(struct MT* mt, size_t len_mtape);
+int add_mt_instruction(struct MT* mt, const char* cur_state, char symbol, const char* new_state, char new_symbol, char motion);
 
 #endif
