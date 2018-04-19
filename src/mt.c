@@ -47,3 +47,40 @@ int add_mt_instruction(struct MT* mt, const char* cur_state, char symbol, const 
 	} 
 	return -4;
 }
+
+int run_instruction(struct MT* mt, struct Instruction* tmp) {
+	if(mt == NULL) {
+		return -1;
+	}
+
+	if(strcmp(mt->stop, mt->cur_state) == 0) {
+		return -5;
+	}
+	mt->cur_symbol->value = tmp->new_symbol;
+		
+	if(tmp->motion == 'l') {
+		if(mt->cur_symbol->prev != NULL) {
+			mt->cur_symbol = mt->cur_symbol->prev;
+		}
+		else {
+			return -2;
+		}
+	}
+	else if(tmp->motion == 'r') {
+		if(mt->cur_symbol->next != NULL) {
+			mt->cur_symbol = mt->cur_symbol->next;
+		}
+		else {
+			return -2;
+		}
+	}
+	else if(tmp->motion != 's') {
+		return -3;
+	}
+
+	free(mt->cur_state);
+	mt->cur_state = (char*)malloc(strlen(tmp->new_state) + 1);
+	strcpy(mt->cur_state, tmp->new_state);
+
+	return 0;
+}
