@@ -14,4 +14,6 @@ struct MT {
 	size_t size_mtape;
 };
 int add_mt_str(struct MT* mt, size_t pos, const char *str);
+void clear_mt(struct MT* mt);
+
 #endif
