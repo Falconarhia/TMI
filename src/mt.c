@@ -125,4 +125,3 @@ int add_mt_str(struct MT* mt, size_t pos, const char *str) {
 
 	return 0;
 }
-
