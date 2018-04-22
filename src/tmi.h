@@ -14,4 +14,5 @@ struct TMI {
 	struct DLL_Node breakpoint;
 };
 int tmi_run_next(struct TMI* tmi, int flag);
+int tmi_run_prev(struct TMI* tmi);
 #endif
