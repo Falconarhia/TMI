@@ -45,3 +45,10 @@ int init_tmi(struct TMI* tmi, size_t len_mtape, const char* filename) {
 	return 0;
 
 }
+
+
+void clear_tmi(struct TMI* tmi) {
+	clear_mt(&tmi->mt);
+	clear_dll(&tmi->instruction);
+	clear_dll(&tmi->breakpoint);
+}

@@ -15,4 +15,5 @@ struct TMI {
 };
 
 int init_tmi(struct TMI* tmi, size_t len_mtape, const char* filename);
+void clear_tmi(struct TMI* tmi);
 #endif
