@@ -50,3 +50,25 @@ CTEST(DLL_FIND_ITEM, find_item_ok) {
 	ASSERT_NOT_NULL(a);
 }
 
+CTEST(DLL_REMOVE_LAST, remove_null) {
+	int a = remove_last(NULL);
+	int expected = -1;
+	ASSERT_EQUAL(expected, a);
+}
+
+CTEST(DLL_REMOVE_LAST, remove_empty) {
+	struct DLL_Node s;
+	init(&s);
+	int a = remove_last(&s);
+	int expected = -2;
+	ASSERT_EQUAL(expected, a);
+}
+
+CTEST(DLL_REMOVE_LAST, remove_ok) {
+	struct DLL_Node s;
+	init(&s);
+	add(&s, 1);
+	int a = remove_last(&s);
+	int expected = 0;
+	ASSERT_EQUAL(expected, a);
+}
