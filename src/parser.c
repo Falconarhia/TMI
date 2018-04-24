@@ -24,7 +24,6 @@ int parser_instruction(struct Instruction* instruction, const char* str) {
 	int state = 1;
 	char init_state[100];
 	char new_state[100];
-	int flag = 0;
 	char sc;
 	char nc;
 	char m;
@@ -71,7 +70,6 @@ int parser_instruction(struct Instruction* instruction, const char* str) {
 			else {
 				return -3;
 			}
-			flag = 0;
 			break;
 
 			case 6:

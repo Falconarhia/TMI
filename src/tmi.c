@@ -63,7 +63,6 @@ int tmi_run_next(struct TMI* tmi, int flag) {
 		return -5;
 	}
 	struct Instruction* tmp;
-	struct DLL_Node* tmpb;
 	int r = find_instruction(&tmi->mt.instructions, &tmp, tmi->mt.cur_state, tmi->mt.cur_symbol->value);
 	if(r > -1) {
 		if((flag == 0) && (find_item(&tmi->breakpoint, r) != NULL)) {

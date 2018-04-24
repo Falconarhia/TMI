@@ -48,6 +48,8 @@ struct DLL_Node* find_item(struct DLL_Node* head, int val) {
 
 		tmp = tmp->next;
 	}
+
+	return NULL;
 }
 
 
