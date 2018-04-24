@@ -29,3 +29,24 @@ CTEST(DLL_ADD, add_ok) {
 	ASSERT_EQUAL(s.next->value, 1);
 }
 
+CTEST(DLL_FIND_ITEM, find_item_null_list) {
+	struct DLL_Node* a = find_item(NULL, 1);
+	ASSERT_NULL(a);
+}
+
+CTEST(DLL_FIND_ITEM, find_item_fail) {
+	struct DLL_Node s;
+	init(&s);
+	add(&s, 2);
+	struct DLL_Node* a = find_item(&s, 1);
+	ASSERT_NULL(a);
+}
+
+CTEST(DLL_FIND_ITEM, find_item_ok) {
+	struct DLL_Node s;
+	init(&s);
+	add(&s, 1);
+	struct DLL_Node* a = find_item(&s, 1);
+	ASSERT_NOT_NULL(a);
+}
+
