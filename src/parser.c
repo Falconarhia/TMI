@@ -1,4 +1,4 @@
-#include "parcer.h"
+#include "parser.h"
 
 int is_printed_char(char c) {
 	if((c >= '!') && (c <= '~')) {

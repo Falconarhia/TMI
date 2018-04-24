@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "mt.h"
 #include "double_linked_list.h"
-#include "parcer.h"
+#include "parser.h"
 
 #define SIZE_STR 100
 
