@@ -72,3 +72,12 @@ CTEST(DLL_REMOVE_LAST, remove_ok) {
 	int expected = 0;
 	ASSERT_EQUAL(expected, a);
 }
+
+CTEST(DLL_CLEAR, clear) {
+	struct DLL_Node s;
+	init(&s);
+	add(&s, 1);
+	add(&s, 2);
+	clear_dll(&s);
+	ASSERT_NULL(s.next);
+}
