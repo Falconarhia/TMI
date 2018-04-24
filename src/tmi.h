@@ -16,4 +16,6 @@ struct TMI {
 
 int init_tmi(struct TMI* tmi, size_t len_mtape, const char* filename);
 void clear_tmi(struct TMI* tmi);
+int tmi_run_next(struct TMI* tmi, int flag);
+int tmi_run_prev(struct TMI* tmi);
 #endif
