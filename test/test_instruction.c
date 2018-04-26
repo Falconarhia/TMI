@@ -86,3 +86,12 @@ CTEST(INSTRUCTION_FIND, find_ok) {
 	int expected = 0;
 	ASSERT_EQUAL(expected, a);
 }
+
+CTEST(INSTRUCTION_CLEAR, clear) {
+	struct Instruction head;
+	init_instruction(&head);
+	add_instruction(&head, "qwe", 'a', "eqw", 'd', 'r');
+	add_instruction(&head, "qwe", 'a', "eqwd", 'd', 'r');
+	clear_instruction(&head);
+	ASSERT_NULL(head.next);
+}
