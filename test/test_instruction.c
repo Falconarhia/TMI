@@ -75,3 +75,14 @@ CTEST(INSTRUCTION_FIND, find_fail) {
 	expected = -4;
 	ASSERT_EQUAL(expected, a);
 }
+
+
+CTEST(INSTRUCTION_FIND, find_ok) {
+	struct Instruction head;
+	struct Instruction* tmp;
+	init_instruction(&head);
+	add_instruction(&head, "qwe", 'a', "eqw", 'd', 'r');
+	int a = find_instruction(&head, &tmp, "qwe", 'a');
+	int expected = 0;
+	ASSERT_EQUAL(expected, a);
+}
