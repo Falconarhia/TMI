@@ -37,10 +37,12 @@ int init_tmi(struct TMI* tmi, size_t len_mtape, const char* filename) {
 			add(&tmi->breakpoint, i);
 		}
 		else if(r != 0) {
+			fclose(file);
 			return -3;
 		}
 		++i;
 	}
+	fclose(file);
 
 	return 0;
 
