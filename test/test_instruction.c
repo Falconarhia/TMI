@@ -32,3 +32,27 @@ CTEST(INSTRUCTION_ADD, add_ok) {
 	int expected = 0;
 	ASSERT_EQUAL(expected, a);
 }
+
+
+CTEST(INSTRUCTION_REMOVE, remove_fail) {
+	int a = remove_last_instruction(NULL);
+	int expected = -1;
+	ASSERT_EQUAL(expected, a);
+}
+
+CTEST(INSTRUCTION_REMOVE, remove_empty) {
+	struct Instruction head;
+	init_instruction(&head);
+	int a = remove_last_instruction(&head);
+	int expected = -2;
+	ASSERT_EQUAL(expected, a);
+}
+
+CTEST(INSTRUCTION_REMOVE, remove_ok) {
+	struct Instruction head;
+	init_instruction(&head);
+	add_instruction(&head, "qwe", 'a', "eqw", 'd', 'r');
+	int a = remove_last_instruction(&head);
+	int expected = 0;
+	ASSERT_EQUAL(expected, a);
+}
