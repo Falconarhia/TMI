@@ -13,3 +13,22 @@ CTEST(INSTRUCTION_INIT, init_ok) {
 	int expected = 0;
 	ASSERT_EQUAL(expected, a);
 }
+
+CTEST(INSTRUCTION_ADD, add_fail) {
+	struct Instruction head;
+	init_instruction(&head);
+	int a = add_instruction(NULL, "qwe", 'a', "eqw", 'd', 'r');
+	int expected = -1;
+	ASSERT_EQUAL(expected, a);
+	a = add_instruction(&head, NULL, 'a', "eqw", 'd', 'r');
+	expected = -2;
+	ASSERT_EQUAL(expected, a);
+}
+
+CTEST(INSTRUCTION_ADD, add_ok) {
+	struct Instruction head;
+	init_instruction(&head);
+	int a = add_instruction(&head, "qwe", 'a', "eqw", 'd', 'r');
+	int expected = 0;
+	ASSERT_EQUAL(expected, a);
+}
