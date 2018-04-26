@@ -56,3 +56,22 @@ CTEST(INSTRUCTION_REMOVE, remove_ok) {
 	int expected = 0;
 	ASSERT_EQUAL(expected, a);
 }
+
+CTEST(INSTRUCTION_FIND, find_fail) {
+	struct Instruction head;
+	struct Instruction* tmp;
+	init_instruction(&head);
+	add_instruction(&head, "qwe", 'a', "eqw", 'd', 'r');
+	int a = find_instruction(NULL, &tmp, "qwe", 'a');
+	int expected = -1;
+	ASSERT_EQUAL(expected, a);
+	a = find_instruction(&head, NULL, "qwe", 'a');
+	expected = -2;
+	ASSERT_EQUAL(expected, a);
+	a = find_instruction(&head, &tmp, NULL, 'a');
+	expected = -3;
+	ASSERT_EQUAL(expected, a);
+	a = find_instruction(&head, &tmp, "ddqwd", 'a');
+	expected = -4;
+	ASSERT_EQUAL(expected, a);
+}
