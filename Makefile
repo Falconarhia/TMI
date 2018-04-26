@@ -1,6 +1,8 @@
 TMI: mkdir_bin tmi.o double_linked_list.o instruction_list.o parser.o mt.o tmi.o main.o
 	gcc -std=c99 -Wall -Werror build/tmi.o build/double_linked_list.o build/instruction_list.o build/parser.o build/mt.o build/main.o -o bin/TMI
 
+test: dll_test.o test_instruction.o main_test.o instruction_list.o double_linked_list.o
+	gcc -std=c99 -Wall -Werror build/double_linked_list.o build/instruction_list.o build/test/dll_test.o build/test/test_instruction.o build/test/main.o -o bin/TMI_TEST
 
 double_linked_list.o: mkdir_build src/double_linked_list.c
 	gcc -std=c99 -Wall -Werror -c src/double_linked_list.c -o build/double_linked_list.o
@@ -19,6 +21,15 @@ tmi.o: mkdir_build src/tmi.c
 
 main.o: mkdir_build src/main.c
 	gcc -std=c99 -Wall -Werror -c src/main.c -o build/main.o
+
+dll_test.o: double_linked_list.o test/test_dll.c
+	gcc -std=c99 -Wall -Werror -I thirdparty -I src -c test/test_dll.c -o build/test/dll_test.o
+
+test_instruction.o: test/test_dll.c
+	gcc -std=c99 -Wall -Werror -I thirdparty -I src -c test/test_instruction.c -o build/test/test_instruction.o
+
+main_test.o: test/main.c
+	gcc -std=c99 -Wall -Werror -I thirdparty -I src -c test/main.c -o build/test/main.o
 
 mkdir_bin:
 	if [ ! -d "bin" ]; then mkdir bin; fi
