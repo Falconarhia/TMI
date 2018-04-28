@@ -24,3 +24,26 @@ CTEST(MT, init_ok) {
 	expected = 0;
 	ASSERT_EQUAL(expected, a);
 }
+
+CTEST(MT, add_fail) {
+	int a;
+	int expected;
+	struct MT mt;
+
+	init_mt(&mt, 10);
+	add_mt_instruction(&mt, "start", 'a', "start", 'b', 'l');
+	a = add_mt_instruction(&mt, "start", 'a', "start", 'b', 'l');
+	expected = -4;
+	ASSERT_EQUAL(expected, a);
+}
+
+CTEST(MT, add_ok) {
+	int a;
+	int expected;
+	struct MT mt;
+
+	init_mt(&mt, 10);
+	a = add_mt_instruction(&mt, "start", 'a', "start", 'b', 'l');
+	expected = 0;
+	ASSERT_EQUAL(expected, a);
+}
