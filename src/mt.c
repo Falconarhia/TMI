@@ -1,7 +1,7 @@
 #include "mt.h"
 
 int init_mt(struct MT* mt, size_t len_mtape) {
-	if(mt == NULL) {
+	if((mt == NULL) || (len_mtape == 0)){
 		return -1;
 	}
 
