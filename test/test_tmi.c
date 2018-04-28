@@ -30,6 +30,44 @@ CTEST(TMI, init_ok) {
 	struct TMI tmi;
 
 	a = init_tmi(&tmi, 10, "test/file.txt");
-	expected = -0;
+	expected = 0;
+	ASSERT_EQUAL(expected, a);
+}
+
+CTEST(TMI, run_next_fail) {
+	int a;
+	int expected;
+	struct TMI tmi;
+
+	init_tmi(&tmi, 1000, "test/file_run_fail.txt");
+	expected = -4;
+
+	a = tmi_run_next(&tmi, 0);
+	ASSERT_EQUAL(expected, a);
+
+	a = tmi_run_next(NULL, 0);
+	expected = -1;
+	ASSERT_EQUAL(expected, a);
+
+	free(tmi.mt.cur_state);
+	tmi.mt.cur_state = "stop";
+	a = tmi_run_next(&tmi, 0);
+	expected = -5;
+	ASSERT_EQUAL(expected, a);
+}
+
+CTEST(TMI, run_next_ok) {
+	int a;
+	int expected;
+	struct TMI tmi;
+
+	init_tmi(&tmi, 1000, "test/file.txt");
+	expected = 0;
+
+	a = tmi_run_next(&tmi, 0);
+	ASSERT_EQUAL(expected, a);
+
+	expected = -11;
+	a = tmi_run_next(&tmi, 0);
 	ASSERT_EQUAL(expected, a);
 }
