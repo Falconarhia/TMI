@@ -71,3 +71,36 @@ CTEST(TMI, run_next_ok) {
 	a = tmi_run_next(&tmi, 0);
 	ASSERT_EQUAL(expected, a);
 }
+
+CTEST(TMI, run_prev_ok) {
+	int a;
+	int expected;
+	struct TMI tmi;
+
+	init_tmi(&tmi, 1000, "test/file.txt");
+	tmi_run_next(&tmi, 0);
+	tmi_run_next(&tmi, 0);
+
+	expected = 0;
+	a = tmi_run_prev(&tmi);
+	ASSERT_EQUAL(expected, a);
+}
+
+CTEST(TMI, run_prev_fail) {
+	int a;
+	int expected;
+	struct TMI tmi;
+
+	init_tmi(&tmi, 1000, "test/file.txt");
+
+	expected = -2;
+	a = tmi_run_prev(&tmi);
+	ASSERT_EQUAL(expected, a);
+	
+	tmi_run_next(&tmi, 0);
+	tmi_run_next(&tmi, 0);
+
+	expected = -1;
+	a = tmi_run_prev(NULL);
+	ASSERT_EQUAL(expected, a);
+}
