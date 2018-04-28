@@ -1,7 +1,7 @@
 #include "mt.h"
 
 int init_mt(struct MT* mt, size_t len_mtape) {
-	if(mt == NULL) {
+	if((mt == NULL) || (len_mtape == 0)){
 		return -1;
 	}
 
@@ -49,7 +49,7 @@ int add_mt_instruction(struct MT* mt, const char* cur_state, char symbol, const 
 }
 
 int run_instruction(struct MT* mt, struct Instruction* tmp) {
-	if(mt == NULL) {
+	if((mt == NULL) || (tmp == NULL)){
 		return -1;
 	}
 
@@ -59,7 +59,7 @@ int run_instruction(struct MT* mt, struct Instruction* tmp) {
 	mt->cur_symbol->value = tmp->new_symbol;
 		
 	if(tmp->motion == 'l') {
-		if(mt->cur_symbol->prev != NULL) {
+		if(mt->cur_symbol->prev->prev != NULL) {
 			mt->cur_symbol = mt->cur_symbol->prev;
 		}
 		else {
