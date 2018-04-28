@@ -47,3 +47,37 @@ CTEST(MT, add_ok) {
 	expected = 0;
 	ASSERT_EQUAL(expected, a);
 }
+
+CTEST(MT, add_mt_str_fail) {
+	int a;
+	int expected;
+	struct MT mt;
+
+	init_mt(&mt, 10);
+	a = add_mt_str(NULL, 0, "110011");
+	expected = -1;
+	ASSERT_EQUAL(expected, a);
+
+	a = add_mt_str(&mt, 0, NULL);
+	expected = -1;
+	ASSERT_EQUAL(expected, a);
+
+	a = add_mt_str(&mt, 0, "");
+	expected = -1;
+	ASSERT_EQUAL(expected, a);
+
+	a = add_mt_str(&mt, 110, "110011");
+	expected = -2;
+	ASSERT_EQUAL(expected, a);
+}
+
+CTEST(MT, add_mt_str_ok) {
+	int a;
+	int expected;
+	struct MT mt;
+
+	init_mt(&mt, 10);
+	a = add_mt_str(&mt, 0, "110011");
+	expected = 0;
+	ASSERT_EQUAL(expected, a);
+}
