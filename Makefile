@@ -3,7 +3,10 @@ TMI: mkdir_bin tmi.o double_linked_list.o \
 	gcc -std=c99 -Wall -Werror build/tmi.o build/double_linked_list.o \
 	build/instruction_list.o build/parser.o build/mt.o build/main.o -o bin/TMI
 
-test: dll_test.o test_instruction.o test_parser.o main_test.o \
+test: TMI_TEST
+	bin/TMI_TEST
+
+TMI_TEST: dll_test.o test_instruction.o test_parser.o main_test.o \
 	instruction_list.o double_linked_list.o parser.o \
 	mt.o tmi.o test_mt.o tmi.o test_tmi.o
 	gcc -std=c99 -Wall -Werror build/double_linked_list.o \
