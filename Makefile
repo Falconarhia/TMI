@@ -4,13 +4,16 @@ TMI: mkdir_bin tmi.o double_linked_list.o \
 	build/instruction_list.o build/parser.o build/mt.o build/main.o -o bin/TMI
 
 test: dll_test.o test_instruction.o test_parser.o main_test.o \
-	instruction_list.o double_linked_list.o parser.o
+	instruction_list.o double_linked_list.o parser.o \
+	mt.o tmi.o test_mt.o
 	gcc -std=c99 -Wall -Werror build/double_linked_list.o \
 	build/instruction_list.o \
 	build/parser.o \
+	build/mt.o \
 	build/test/dll_test.o \
 	build/test/test_parser.o \
 	build/test/test_instruction.o \
+	build/test/test_mt.o \
 	build/test/main.o -o bin/TMI_TEST
 
 double_linked_list.o: mkdir_build src/double_linked_list.c
@@ -44,6 +47,10 @@ test_instruction.o: test/test_instruction.c
 test_parser.o: test/test_parser.c
 	gcc -std=c99 -Wall -Werror -I thirdparty -I src \
 	-c test/test_parser.c -o build/test/test_parser.o
+
+test_mt.o: test/test_mt.c
+	gcc -std=c99 -Wall -Werror -I thirdparty -I src \
+	-c test/test_mt.c -o build/test/test_mt.o
 
 main_test.o: test/main.c
 	gcc -std=c99 -Wall -Werror -I thirdparty -I src \
