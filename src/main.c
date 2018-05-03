@@ -4,314 +4,54 @@
 #include "mt.h"
 #include "parser.h"
 #include "tmi.h"
+#include "ncurses.h"
+#include <getopt.h>
 
-int main (int argc, const char** argv) {
-	struct TMI tmi;
-	int r = init_tmi(&tmi, 20000, argv[1]);
-	printf("init %d\n", r);
+struct TMI tmi;
+char* filename = NULL;
+int size_tape = 20000;
 
-	struct Instruction* i_tmp = tmi.mt.instructions.next;
-
-	while(i_tmp != NULL) {
-		printf("print instruction %s %c %s %c %c\n", i_tmp->init_state, i_tmp->read_symbol, i_tmp->new_state, i_tmp->new_symbol, i_tmp->motion);
-		i_tmp = i_tmp->next;
+int main (int argc, char** argv) {
+	if(argc > 3) {
+		printf("Слишко много параметров\n");
+		return -1;
+	}
+	if(argc == 1) {
+		printf("Слишко мало параметров\n");
+		return -1;
 	}
 
-	struct DLL_Node *d = &tmi.mt.memory_tape;
-	r = tmi_run_next(&tmi, 0);
-	while((r > -1) || (r < -9)){
-		printf("tmi_run_next %d\n", r);
-		d = &tmi.mt.memory_tape;
-		while((d != NULL) && (d->value != ' ')) {
-			printf("%c", (char)d->value);
-			d = d->next;
+	int res = 0;
+	int opt = getopt(argc, argv, ":l:f:");
+	while(opt != -1) {
+		switch(opt) {
+			case 'l':
+			if(res != 0) {
+				printf("Нельзя повторнно использовать параметр l\n");
+				return -1;
+			}
+			res = sscanf(optarg, "%d", &size_tape);
+			if((size_tape < 1) || (res < 1)){
+				printf("Неверно задана длина ленты\n");
+				return -1;
+			}
+			break;
+
+			case 'f':
+			if(filename != NULL) {
+				printf("Нельзя повторно использовать параметр f\n");
+				return -1;
+			}
+			filename = (char*) malloc(strlen(optarg) + 1);
+			strcpy(filename, optarg);
+			break;
+
+			default:
+			printf("Неизвестный параметр\n");
+			return -1;
 		}
-		printf("\n");
-		if(r < -9) {
-			r = tmi_run_next(&tmi, 1);
-		}
-		else {
-			r = tmi_run_next(&tmi, 0);	
-		}
+		printf("%s\n", optarg);
+		opt = getopt(argc, argv, ":l:f:");
 	}
-
-	printf("%d\n", r);
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n");
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n");
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n");
-
-	clear_tmi(&tmi);
-	r = init_tmi(&tmi, 20000, argv[1]);
-	printf("init %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	r = tmi_run_next(&tmi, 0);
-	while((r > -1) || (r < -9)){
-		printf("tmi_run_next %d\n", r);
-		d = &tmi.mt.memory_tape;
-		while((d != NULL) && (d->value != ' ')) {
-			printf("%c", (char)d->value);
-			d = d->next;
-		}
-		printf("\n");
-		if(r < -9) {
-			r = tmi_run_next(&tmi, 1);
-		}
-		else {
-			r = tmi_run_next(&tmi, 0);	
-		}
-	}
-
-	printf("%d\n", r);
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n");
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n");
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n\n");
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n");
-
-	clear_tmi(&tmi);
-	r = init_tmi(&tmi, 20000, argv[1]);
-	printf("init %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	r = tmi_run_next(&tmi, 0);
-	while((r > -1) || (r < -9)){
-		printf("tmi_run_next %d\n", r);
-		d = &tmi.mt.memory_tape;
-		while((d != NULL) && (d->value != ' ')) {
-			printf("%c", (char)d->value);
-			d = d->next;
-		}
-		printf("\n");
-		if(r < -9) {
-			r = tmi_run_next(&tmi, 1);
-		}
-		else {
-			r = tmi_run_next(&tmi, 0);	
-		}
-	}
-
-	printf("%d\n", r);
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n");
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n");
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n");
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n");
-
-	clear_tmi(&tmi);
-	r = init_tmi(&tmi, 20000, argv[1]);
-	printf("init %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	r = tmi_run_next(&tmi, 0);
-	while((r > -1) || (r < -9)){
-		printf("tmi_run_next %d\n", r);
-		d = &tmi.mt.memory_tape;
-		while((d != NULL) && (d->value != ' ')) {
-			printf("%c", (char)d->value);
-			d = d->next;
-		}
-		printf("\n");
-		if(r < -9) {
-			r = tmi_run_next(&tmi, 1);
-		}
-		else {
-			r = tmi_run_next(&tmi, 0);	
-		}
-	}
-
-	printf("%d\n", r);
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n");
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n");
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n");
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n");
-
-	clear_tmi(&tmi);
-	r = init_tmi(&tmi, 20000, argv[1]);
-	printf("init %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	r = tmi_run_next(&tmi, 0);
-	while((r > -1) || (r < -9)){
-		printf("tmi_run_next %d\n", r);
-		d = &tmi.mt.memory_tape;
-		while((d != NULL) && (d->value != ' ')) {
-			printf("%c", (char)d->value);
-			d = d->next;
-		}
-		printf("\n");
-		if(r < -9) {
-			r = tmi_run_next(&tmi, 1);
-		}
-		else {
-			r = tmi_run_next(&tmi, 0);	
-		}
-	}
-
-	printf("%d\n", r);
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n");
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n");
-
-	r = tmi_run_prev(&tmi);
-	printf("run prev %d\n", r);
-
-	d = &tmi.mt.memory_tape;
-	while((d != NULL) && (d->value != ' ')) {
-		printf("%c", (char)d->value);
-		d = d->next;
-	}
-	printf("\n");
-	
 	return 0;
 }
