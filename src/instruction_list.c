@@ -63,7 +63,7 @@ int add_instruction(struct Instruction* head, const char* init_state, char read_
 	tmp->new_symbol = new_symbol;
 	tmp->motion = motion;
 	tmp->next = NULL;
-	tmp->prev = NULL;
+	tmp->prev = head;
 	tmp->num = head->num + 1;
 	head->next = tmp;
 

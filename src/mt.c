@@ -117,11 +117,13 @@ int add_mt_str(struct MT* mt, size_t pos, const char *str) {
 		++p;
 	}
 	int i = 0;
-	while((tmp != NULL) && (str[i] != '\0') && (str[i] != '\n') && (str[i] != '\r')) {
+	while((tmp->next != NULL) && (str[i] != '\0') && (str[i] != '\n') && (str[i] != '\r')) {
 		tmp->value = (int)str[i];
 		tmp = tmp->next;
 		++i;
 	}
+
+	//tmp->value = ' ';
 
 	return 0;
 }
