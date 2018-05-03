@@ -44,6 +44,10 @@ int init_tmi(struct TMI* tmi, size_t len_mtape, const char* filename) {
 	}
 	fclose(file);
 
+	if(tmi->mt.instructions.next == NULL) {
+		return -3;
+	}
+
 	return 0;
 
 }
