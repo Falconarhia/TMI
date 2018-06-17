@@ -1,0 +1,8 @@
+ 1010110101111
+start lb s2 lb r
+s2 1 s2 1 r
+s2 0 s2 0 r
+s2 lb s1 lb l
+s1 0 stop 1 s
+s1 1 s1 0 l
+s1 lb stop 1 s

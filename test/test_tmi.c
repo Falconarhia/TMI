@@ -5,7 +5,7 @@ CTEST(TMI, init_fail) {
 	int a;
 	int expected;
 
-	a = init_tmi(NULL, 10, "test/file.txt");
+	a = init_tmi(NULL, 10, "examples/file.txt");
 	expected = -1;
 	ASSERT_EQUAL(expected, a);
 
@@ -19,7 +19,7 @@ CTEST(TMI, init_fail) {
 	expected = -3;
 	ASSERT_EQUAL(expected, a);
 
-	a = init_tmi(&tmi, 10, "test/file_fail.txt");
+	a = init_tmi(&tmi, 10, "examples/file_fail.txt");
 	expected = -3;
 	ASSERT_EQUAL(expected, a);
 }
@@ -29,7 +29,7 @@ CTEST(TMI, init_ok) {
 	int expected;
 	struct TMI tmi;
 
-	a = init_tmi(&tmi, 10, "test/file.txt");
+	a = init_tmi(&tmi, 10, "examples/file.txt");
 	expected = 0;
 	ASSERT_EQUAL(expected, a);
 }
@@ -39,7 +39,7 @@ CTEST(TMI, run_next_fail) {
 	int expected;
 	struct TMI tmi;
 
-	init_tmi(&tmi, 1000, "test/file_run_fail.txt");
+	init_tmi(&tmi, 1000, "examples/file_run_fail.txt");
 	expected = -4;
 
 	a = tmi_run_next(&tmi, 0);
@@ -61,7 +61,7 @@ CTEST(TMI, run_next_ok) {
 	int expected;
 	struct TMI tmi;
 
-	init_tmi(&tmi, 1000, "test/file.txt");
+	init_tmi(&tmi, 1000, "examples/file.txt");
 	expected = 0;
 
 	a = tmi_run_next(&tmi, 0);
@@ -77,7 +77,7 @@ CTEST(TMI, run_prev_ok) {
 	int expected;
 	struct TMI tmi;
 
-	init_tmi(&tmi, 1000, "test/file.txt");
+	init_tmi(&tmi, 1000, "examples/file.txt");
 	tmi_run_next(&tmi, 0);
 	tmi_run_next(&tmi, 0);
 
@@ -91,7 +91,7 @@ CTEST(TMI, run_prev_fail) {
 	int expected;
 	struct TMI tmi;
 
-	init_tmi(&tmi, 1000, "test/file.txt");
+	init_tmi(&tmi, 1000, "examples/file.txt");
 
 	expected = -2;
 	a = tmi_run_prev(&tmi);

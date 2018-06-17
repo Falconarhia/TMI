@@ -116,7 +116,7 @@ void interface() {
 	int y = 6;
 	mvprintw(y - 1, 1, "Programm:");
 	while(ti != NULL) {
-		mvprintw(y, 1, "%d %s %c %s %c %c", ti->num, ti->init_state, 
+		mvprintw(y, 1, "%d %s %c %s %c %c                  ", ti->num, ti->init_state, 
 			ti->read_symbol, ti->new_state, ti->new_symbol, ti->motion);
 		if(ti == ins_stop) {
 			break;

@@ -1,6 +1,6 @@
 build/
 bin/
-*
+!examples/
 !Makefile
 !.travis.yml
 !.gitignore
