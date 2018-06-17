@@ -1,0 +1,10 @@
+os: linux
+dist: trusty
+group: stable
+script: make && make test
+compiler: gcc
+language: c
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y libncurses5-dev
+  - sudo apt-get install -y libncursesw5-dev
